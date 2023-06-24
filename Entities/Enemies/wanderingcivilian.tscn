@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Entities/Enemies/wanderingcivilian.gd" id="2_one0f"]
 
 [node name="wanderingcivilian" instance=ExtResource("1_rnkwu")]
+collision_layer = 6
 script = ExtResource("2_one0f")
 walking_speed = 150
 
@@ -13,3 +14,10 @@ one_shot = true
 [node name="WanderingTimer" type="Timer" parent="." index="3"]
 wait_time = 2.0
 one_shot = true
+
+[node name="ReadyToLeaveTimer" type="Timer" parent="." index="5"]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="ReadyToLeaveTimer" to="." method="_on_ready_to_leave_timer_timeout"]

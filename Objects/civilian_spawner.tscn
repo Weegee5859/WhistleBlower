@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dmg053vbbnbng" path="res://Entities/Enemies/walkingcivilian.tscn" id="3_oa7b1"]
 [ext_resource type="PackedScene" uid="uid://ccjp3kj3xa0so" path="res://Entities/Enemies/runningcivilian.tscn" id="3_qxt24"]
 
-[node name="CivilianSpawner" type="Node2D"]
+[node name="CivilianSpawner" type="Marker2D"]
 script = ExtResource("1_ivoe7")
 civilians = Array[Resource]([ExtResource("3_oa7b1"), ExtResource("3_qxt24")])
 

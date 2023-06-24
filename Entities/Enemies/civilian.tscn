@@ -1,13 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://bbkqawh0yfxot"]
+[gd_scene load_steps=6 format=3 uid="uid://bbkqawh0yfxot"]
 
 [ext_resource type="PackedScene" uid="uid://cbv5etmqaqmd3" path="res://Entities/entity.tscn" id="1_3u6p4"]
 [ext_resource type="Script" path="res://Entities/Enemies/civilian.gd" id="2_vmobx"]
 [ext_resource type="Texture2D" uid="uid://cxyfiav22t1l6" path="res://icon.svg" id="2_y05qj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m5oin"]
-size = Vector2(129, 130)
+size = Vector2(98, 100)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nmrnm"]
+size = Vector2(63, 62)
 
 [node name="civilian" instance=ExtResource("1_3u6p4")]
+collision_layer = 2
+collision_mask = 16
 script = ExtResource("2_vmobx")
 doing_evil_action = false
 evil_action_complete = false
@@ -23,6 +28,11 @@ collision_layer = 2
 collision_mask = 9
 
 [node name="CollisionShape2D" parent="MouseArea2D" index="0"]
-position = Vector2(0.5, 1)
+position = Vector2(-0.5, -1)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_m5oin")
+debug_color = Color(0, 0.643137, 0.270588, 0.419608)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_nmrnm")

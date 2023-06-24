@@ -4,5 +4,8 @@
 [ext_resource type="Script" path="res://Entities/Enemies/walkingcivilian.gd" id="2_vack0"]
 
 [node name="walkingcivilian" instance=ExtResource("1_287pj")]
-collision_mask = 9
+collision_layer = 6
 script = ExtResource("2_vack0")
+
+[node name="CollisionShape2D" parent="." index="2"]
+disabled = true

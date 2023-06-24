@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://beppbqax8aii3"]
+
+[ext_resource type="Script" path="res://UI/clock.gd" id="1_fijf8"]
+
+[node name="Clock" type="Label"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Clock"
+script = ExtResource("1_fijf8")
+
+[node name="ShiftTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+
+[connection signal="timeout" from="ShiftTimer" to="." method="_on_shift_timer_timeout"]

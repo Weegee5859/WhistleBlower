@@ -1,12 +1,15 @@
 extends Node2D
 @onready var cooldown_timer = $CooldownTimer
-@export var cooldown_time: int = 5
+@export var min_cooldown_time: int = 2
+@export var max_cooldown_time: int = 5
 @onready var civilian
+@export var offset_y: int
+@export var offset_x: int
 
 @export var civilians: Array[Resource]
 func _ready():
 	# set the cooldown timer to specified time
-	cooldown_timer.wait_time = cooldown_time
+	cooldown_timer.wait_time = randf_range(min_cooldown_time,max_cooldown_time)
 	
 	
 func _process(delta):
@@ -18,8 +21,17 @@ func _process(delta):
 		var random_num: int = randi_range(0,civilians.size()-1)
 		# instantiate the randomly selected civilian
 		var civilian_instance = civilians[random_num].instantiate()
+		# Spawn Civilian a certain distance off from the civilian spawners center
+		civilian_instance.position = position
+		# set by how much with offset_y (up, down) and offset_x (left, right)
+		if offset_y:
+			civilian_instance.position.y += randi_range(offset_y*-1,offset_y)
+		if offset_x:
+			civilian_instance.position.x += randi_range(offset_x*-1,offset_x)
 		# add the random civilian to the level
 		get_parent().add_child(civilian_instance)
+		#cooldown_timer
+		cooldown_timer.wait_time = randf_range(min_cooldown_time,max_cooldown_time)
 		# reset the cooldown timer
 		cooldown_timer.start()
 

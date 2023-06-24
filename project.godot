@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Global="*res://global.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 left_click={
@@ -34,3 +38,4 @@ left_click={
 2d_physics/layer_2="Enemy"
 2d_physics/layer_3="Friendly"
 2d_physics/layer_4="Pool"
+2d_physics/layer_5="Border"
