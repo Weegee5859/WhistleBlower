@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbkqawh0yfxot"]
+
+[ext_resource type="PackedScene" uid="uid://cbv5etmqaqmd3" path="res://Entities/entity.tscn" id="1_3u6p4"]
+[ext_resource type="Script" path="res://Entities/Enemies/civilian.gd" id="2_vmobx"]
+[ext_resource type="Texture2D" uid="uid://cxyfiav22t1l6" path="res://icon.svg" id="2_y05qj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5oin"]
+size = Vector2(129, 130)
+
+[node name="civilian" instance=ExtResource("1_3u6p4")]
+script = ExtResource("2_vmobx")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_y05qj")
+
+[node name="MouseArea2D" parent="." index="1"]
+collision_layer = 2
+
+[node name="CollisionShape2D" parent="MouseArea2D" index="0"]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_m5oin")

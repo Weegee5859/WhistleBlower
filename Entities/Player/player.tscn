@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://crlonhrsblnry"]
+
+[ext_resource type="PackedScene" uid="uid://cbv5etmqaqmd3" path="res://Entities/entity.tscn" id="1_sfkwb"]
+[ext_resource type="Texture2D" uid="uid://cxyfiav22t1l6" path="res://icon.svg" id="2_brhod"]
+[ext_resource type="Script" path="res://Entities/Player/player.gd" id="2_cjmkg"]
+
+[node name="Player" instance=ExtResource("1_sfkwb")]
+script = ExtResource("2_cjmkg")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_brhod")
