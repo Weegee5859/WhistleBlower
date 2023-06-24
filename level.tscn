@@ -1,12 +1,35 @@
-[gd_scene load_steps=3 format=3 uid="uid://b56yx0joccxqf"]
+[gd_scene load_steps=7 format=3 uid="uid://b56yx0joccxqf"]
 
 [ext_resource type="PackedScene" uid="uid://crlonhrsblnry" path="res://Entities/Player/player.tscn" id="1_jopkl"]
 [ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="2_l8sgw"]
+[ext_resource type="PackedScene" uid="uid://k458dfyhak8w" path="res://Objects/civilian_spawner.tscn" id="3_3vu1n"]
+[ext_resource type="PackedScene" uid="uid://u2jlmxewm22l" path="res://Objects/pool.tscn" id="4_c0ten"]
+[ext_resource type="PackedScene" uid="uid://d244irgwvfks1" path="res://Entities/Enemies/wanderingcivilian.tscn" id="5_ojpw6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwloc"]
+size = Vector2(789.375, 341.5)
 
 [node name="level" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_jopkl")]
-position = Vector2(237, 240)
+position = Vector2(80, 316)
 
 [node name="civilian" parent="." instance=ExtResource("2_l8sgw")]
-position = Vector2(65, 510)
+position = Vector2(64, 594)
+
+[node name="CivilianSpawner" parent="." instance=ExtResource("3_3vu1n")]
+position = Vector2(20, 61)
+
+[node name="Pool" parent="." instance=ExtResource("4_c0ten")]
+
+[node name="CollisionShape2D" parent="Pool" index="0"]
+position = Vector2(599, 320)
+shape = SubResource("RectangleShape2D_qwloc")
+
+[node name="Marker2D" parent="Pool" index="1"]
+position = Vector2(591, 298)
+
+[node name="wanderingcivilian" parent="." instance=ExtResource("5_ojpw6")]
+position = Vector2(684, 725)
+
+[editable path="Pool"]

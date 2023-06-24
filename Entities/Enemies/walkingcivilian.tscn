@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmg053vbbnbng"]
+
+[ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="1_287pj"]
+[ext_resource type="Script" path="res://Entities/Enemies/walkingcivilian.gd" id="2_vack0"]
+
+[node name="walkingcivilian" instance=ExtResource("1_287pj")]
+collision_mask = 9
+script = ExtResource("2_vack0")
