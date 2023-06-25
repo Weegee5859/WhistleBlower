@@ -97,6 +97,27 @@ position = Vector2(101, 452)
 scale = Vector2(1.89362, 1.89362)
 texture = ExtResource("12_h6hd7")
 
+[node name="ChairUp2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(297.631, 574.905)
+rotation = 3.14159
+scale = Vector2(2.08713, 2.08713)
+texture = ExtResource("13_ls6s1")
+
+[node name="ChairUp3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1084, 600)
+rotation = 2.41417
+scale = Vector2(1.95496, 1.95496)
+texture = ExtResource("13_ls6s1")
+
+[node name="ChairUp4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1066, 444)
+rotation = 1.5708
+scale = Vector2(1.7581, 1.90523)
+texture = ExtResource("13_ls6s1")
+
 [node name="ChairUp" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(876, 89)
@@ -113,4 +134,10 @@ texture = ExtResource("14_potxm")
 texture_filter = 1
 position = Vector2(560, 576)
 scale = Vector2(2.06383, 2.06383)
+texture = ExtResource("15_fqh1m")
+
+[node name="ChairDown2" type="Sprite2D" parent="."]
+position = Vector2(197.733, 73.1606)
+rotation = 3.14159
+scale = Vector2(1.64171, 1.64172)
 texture = ExtResource("15_fqh1m")
