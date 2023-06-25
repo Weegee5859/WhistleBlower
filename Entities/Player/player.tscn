@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://crlonhrsblnry"]
+[gd_scene load_steps=10 format=3 uid="uid://crlonhrsblnry"]
 
 [ext_resource type="PackedScene" uid="uid://cbv5etmqaqmd3" path="res://Entities/entity.tscn" id="1_sfkwb"]
 [ext_resource type="Script" path="res://Entities/Player/player.gd" id="2_cjmkg"]
 [ext_resource type="Texture2D" uid="uid://nlp53mr4ky3o" path="res://Sprites/Lifeguard_Sprite_sheet.png" id="3_ju2o0"]
+[ext_resource type="AudioStream" uid="uid://dhpedd3j1djhs" path="res://Sound/whistle6.wav" id="4_che38"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emv48"]
 size = Vector2(44, 62)
@@ -76,3 +77,6 @@ shape = SubResource("RectangleShape2D_emv48")
 libraries = {
 "": SubResource("AnimationLibrary_2engj")
 }
+
+[node name="whistle" type="AudioStreamPlayer2D" parent="." index="4"]
+stream = ExtResource("4_che38")

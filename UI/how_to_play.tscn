@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://b882nxfj5no5u"]
+
+[ext_resource type="Texture2D" uid="uid://134urppfqxmp" path="res://UI/How to play.png" id="1_qm3b5"]
+[ext_resource type="Script" path="res://UI/how_to_play.gd" id="1_vugar"]
+
+[node name="How to Play" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vugar")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_qm3b5")
+expand_mode = 1
+
+[node name="Main Menu Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 980.0
+offset_top = 361.0
+offset_right = 1123.0
+offset_bottom = 492.0
+
+[connection signal="pressed" from="Main Menu Button" to="." method="_on_main_menu_button_pressed"]
