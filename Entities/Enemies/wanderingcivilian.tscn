@@ -8,7 +8,6 @@
 collision_layer = 6
 script = ExtResource("2_one0f")
 walking_speed = 150
-evil_action_complete = true
 
 [node name="DialogBox" parent="." index="0" instance=ExtResource("3_55xxl")]
 top_level = false
@@ -26,8 +25,16 @@ wait_time = 2.0
 one_shot = true
 
 [node name="ReadyToLeaveTimer" type="Timer" parent="." index="6"]
-wait_time = 10.0
+wait_time = 15.0
 one_shot = true
 autostart = true
+
+[node name="ReadyToPoopTimer" type="Timer" parent="." index="9"]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="PoopyTimer" type="Timer" parent="." index="10"]
+wait_time = 3.0
 
 [connection signal="timeout" from="ReadyToLeaveTimer" to="." method="_on_ready_to_leave_timer_timeout"]

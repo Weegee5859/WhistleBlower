@@ -20,27 +20,54 @@ extends "res://Entities/entity.gd"
 @onready var sprite_2d = $Sprite2D
 @onready var death_animation_start_pos: Vector2
 @onready var death_animation_final_pos: Vector2
+@onready var caught: bool
 
 
 @export var texture_variant_array: Array[Texture] = [
 	preload("res://Sprites/kid_one.png"),
-	preload("res://Sprites/kid_two.png"),
 	preload("res://Sprites/kid_three.png")
 ]
 
 @export var star_particle = preload("res://Sprites/particles/star_particle.tscn")
 
+func setdoingEvilTrue():
+	print("doing evil is trueeeee")
+	doing_evil_action = true
+
+func setdoingEvilFalse():
+	print("doing evil is falseee")
+	doing_evil_action = false
+
+func setevilComplete():
+	print("evillllll doneee")
+	Global.scoreboard.removePoints(scoreWhenEvilIsDone)
+	evil_action_complete = true
+	
+
 func flipSprite():
 	if velocity.x >0:
 		sprite_2d.flip_h = true
+		if animation_player.current_animation == "swim":
+			sprite_2d.rotation = 45
 	if velocity.x <0:
 		sprite_2d.flip_h = false
+		if animation_player.current_animation == "swim":
+			sprite_2d.rotation = -45
 
 func selectRandomTextureVariant():
 	sprite_2d.texture = texture_variant_array[randi_range(0,texture_variant_array.size()-1)]
 
 func _ready():
 	pass
+
+func die():
+	deathMovement()
+	animation_player.play("die")
+	#await animation_player.animation_finished
+	#var new_particle = star_particle.instantiate()
+	#new_particle.position = self.global_position
+	#get_parent().add_child(new_particle)
+	#queue_free()
 
 func _input(event):
 	# If you left a civilian do something...
@@ -50,15 +77,23 @@ func _input(event):
 			#animation_player.play("die")
 			#await animation_player.animation_finished
 			#queue_free()
-			print(str(self) + " got caught!")
+			print(str(self) + " got caught in the act!")
+			caught = true
 			Global.scoreboard.addPoints(scoreWhenCaught)
 			deathMovement()
 			animation_player.play("die")
-			await animation_player.animation_finished
+			#await animation_player.animation_finished
 			#var new_particle = star_particle.instantiate()
 			#new_particle.position = self.global_position
 			#get_parent().add_child(new_particle)
-			queue_free()
+			#queue_free()
+		elif evil_action_complete:
+			print(str(self) + " was caught but it was too late!")
+			caught = true
+			deathMovement()
+			animation_player.play("die")
+			#await animation_player.animation_finished
+			#queue_free()
 		else:
 			# left_clicked or blew whistle at innocent person
 			current_speed=sad_movement_speed
@@ -76,7 +111,7 @@ func deleteWhenFarAway():
 	
 	if distance.length() >= 1500:
 		queue_free()
-		if doing_evil_action or evil_action_complete:
+		if doing_evil_action:
 			print(str(self) + " left the pool after doing EVVVVILLL!")
 			Global.scoreboard.removePoints(scoreWhenEvilEscaped)
 			return
@@ -84,7 +119,7 @@ func deleteWhenFarAway():
 			print(str(self) + " left the pool sad! :(")
 			return
 		print(str(self) + " left the pool happy!")
-		Global.scoreboard.addPoints(scoreWhenInnocentLeftHappy)
+		#Global.scoreboard.addPoints(scoreWhenInnocentLeftHappy)
 
 func enableBypassBorder():
 	collision.disabled = true
@@ -104,3 +139,8 @@ func deathMovement():
 	var direction = Vector2(-1,-1)
 	var speed = 0
 	velocity = direction*speed
+
+
+func _on_animation_player_animation_finished(anim_name):
+	if anim_name == "die":
+		queue_free()

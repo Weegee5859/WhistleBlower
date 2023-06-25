@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://b56yx0joccxqf"]
+[gd_scene load_steps=12 format=3 uid="uid://b56yx0joccxqf"]
 
 [ext_resource type="PackedScene" uid="uid://crlonhrsblnry" path="res://Entities/Player/player.tscn" id="1_jopkl"]
 [ext_resource type="PackedScene" uid="uid://beppbqax8aii3" path="res://UI/clock.tscn" id="1_mi501"]
 [ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="2_l8sgw"]
+[ext_resource type="PackedScene" uid="uid://k458dfyhak8w" path="res://Objects/civilian_spawner.tscn" id="3_3vu1n"]
 [ext_resource type="PackedScene" uid="uid://u2jlmxewm22l" path="res://Objects/pool.tscn" id="4_c0ten"]
 [ext_resource type="PackedScene" uid="uid://d244irgwvfks1" path="res://Entities/Enemies/wanderingcivilian.tscn" id="5_ojpw6"]
 [ext_resource type="PackedScene" uid="uid://cepxog7j58r6g" path="res://Level_Settings/world_border_x.tscn" id="6_2u2vc"]
@@ -57,6 +58,23 @@ position = Vector2(0, 658)
 
 [node name="wanderingcivilian" parent="." instance=ExtResource("5_ojpw6")]
 collision_mask = 16
+doing_evil_action = false
 
 [node name="Node2D" parent="." instance=ExtResource("6_8i28d")]
 position = Vector2(99, 162)
+
+[node name="CivilianSpawner" parent="." instance=ExtResource("3_3vu1n")]
+position = Vector2(-59, 64)
+min_cooldown_time = 4
+max_cooldown_time = 6
+
+[node name="CivilianSpawner2" parent="." instance=ExtResource("3_3vu1n")]
+position = Vector2(-59, 616)
+min_cooldown_time = 6
+max_cooldown_time = 7
+
+[node name="CivilianSpawner3" parent="." instance=ExtResource("3_3vu1n")]
+position = Vector2(606, -41)
+max_cooldown_time = 6
+offset_x = 50
+civilians = Array[Resource]([ExtResource("5_ojpw6")])

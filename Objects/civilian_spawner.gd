@@ -13,6 +13,7 @@ func _ready():
 	
 	
 func _process(delta):
+	if Global.gameover: return
 	# whenever the cooldown stops, add a random civilian
 	# from the array of civilians
 	if cooldown_timer.is_stopped():
