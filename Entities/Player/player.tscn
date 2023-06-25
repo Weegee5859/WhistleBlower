@@ -1,18 +1,78 @@
-[gd_scene load_steps=5 format=3 uid="uid://crlonhrsblnry"]
+[gd_scene load_steps=9 format=3 uid="uid://crlonhrsblnry"]
 
 [ext_resource type="PackedScene" uid="uid://cbv5etmqaqmd3" path="res://Entities/entity.tscn" id="1_sfkwb"]
-[ext_resource type="Texture2D" uid="uid://cxyfiav22t1l6" path="res://icon.svg" id="2_brhod"]
 [ext_resource type="Script" path="res://Entities/Player/player.gd" id="2_cjmkg"]
+[ext_resource type="Texture2D" uid="uid://nlp53mr4ky3o" path="res://Sprites/Lifeguard_Sprite_sheet.png" id="3_ju2o0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emv48"]
-size = Vector2(139, 140)
+size = Vector2(44, 62)
+
+[sub_resource type="Animation" id="Animation_eq15o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_kid5o"]
+resource_name = "blow_whistle"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_euw8w"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_2engj"]
+_data = {
+"RESET": SubResource("Animation_eq15o"),
+"blow_whistle": SubResource("Animation_kid5o"),
+"idle": SubResource("Animation_euw8w")
+}
 
 [node name="Player" instance=ExtResource("1_sfkwb")]
 script = ExtResource("2_cjmkg")
 
 [node name="Sprite2D" parent="." index="0"]
-texture = ExtResource("2_brhod")
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_ju2o0")
+hframes = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2(-1.5, -1)
+position = Vector2(7, -1)
 shape = SubResource("RectangleShape2D_emv48")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_2engj")
+}

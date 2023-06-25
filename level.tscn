@@ -1,22 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://b56yx0joccxqf"]
+[gd_scene load_steps=11 format=3 uid="uid://b56yx0joccxqf"]
 
 [ext_resource type="PackedScene" uid="uid://crlonhrsblnry" path="res://Entities/Player/player.tscn" id="1_jopkl"]
 [ext_resource type="PackedScene" uid="uid://beppbqax8aii3" path="res://UI/clock.tscn" id="1_mi501"]
 [ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="2_l8sgw"]
-[ext_resource type="PackedScene" uid="uid://k458dfyhak8w" path="res://Objects/civilian_spawner.tscn" id="3_3vu1n"]
 [ext_resource type="PackedScene" uid="uid://u2jlmxewm22l" path="res://Objects/pool.tscn" id="4_c0ten"]
 [ext_resource type="PackedScene" uid="uid://d244irgwvfks1" path="res://Entities/Enemies/wanderingcivilian.tscn" id="5_ojpw6"]
 [ext_resource type="PackedScene" uid="uid://cepxog7j58r6g" path="res://Level_Settings/world_border_x.tscn" id="6_2u2vc"]
-[ext_resource type="PackedScene" uid="uid://dmg053vbbnbng" path="res://Entities/Enemies/walkingcivilian.tscn" id="6_o837e"]
-[ext_resource type="PackedScene" uid="uid://ccjp3kj3xa0so" path="res://Entities/Enemies/runningcivilian.tscn" id="7_5wrvm"]
+[ext_resource type="PackedScene" uid="uid://y11cl6o485x2" path="res://Sprites/particles/star_particle.tscn" id="6_8i28d"]
 [ext_resource type="PackedScene" uid="uid://0mqbw66laddq" path="res://Level_Settings/world_border_y.tscn" id="7_f5b37"]
 [ext_resource type="PackedScene" uid="uid://bm3rhb3vwvk6f" path="res://UI/score.tscn" id="8_erm57"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rjs8w"]
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwloc"]
-size = Vector2(789.375, 341.5)
 
 [node name="level" type="Node2D"]
 
@@ -33,40 +28,20 @@ grow_vertical = 1
 label_settings = SubResource("LabelSettings_rjs8w")
 
 [node name="Clock" parent="." instance=ExtResource("1_mi501")]
-offset_left = 20.0
-offset_top = 43.0
-offset_right = 62.0
-offset_bottom = 69.0
+offset_left = 12.0
+offset_top = 41.0
+offset_right = -1036.0
+offset_bottom = -578.0
+
+[node name="Pool" parent="." instance=ExtResource("4_c0ten")]
+position = Vector2(573, 326)
+scale = Vector2(4, 4)
 
 [node name="Player" parent="." instance=ExtResource("1_jopkl")]
 position = Vector2(80, 316)
 
 [node name="civilian" parent="." instance=ExtResource("2_l8sgw")]
-position = Vector2(74, 496)
-
-[node name="CivilianSpawner" parent="." instance=ExtResource("3_3vu1n")]
-position = Vector2(-67, 98)
-offset_y = 15
-
-[node name="CivilianSpawner2" parent="." instance=ExtResource("3_3vu1n")]
-position = Vector2(-47, 586)
-max_cooldown_time = 7
-offset_y = 15
-civilians = Array[Resource]([ExtResource("6_o837e"), ExtResource("7_5wrvm"), ExtResource("5_ojpw6"), ExtResource("7_5wrvm")])
-
-[node name="CivilianSpawner3" parent="." instance=ExtResource("3_3vu1n")]
-min_cooldown_time = 5
-max_cooldown_time = 10
-civilians = Array[Resource]([ExtResource("5_ojpw6")])
-
-[node name="Pool" parent="." instance=ExtResource("4_c0ten")]
-
-[node name="CollisionShape2D" parent="Pool" index="0"]
-position = Vector2(599, 320)
-shape = SubResource("RectangleShape2D_qwloc")
-
-[node name="Marker2D" parent="Pool" index="1"]
-position = Vector2(591, 298)
+collision_mask = 17
 
 [node name="world_border_x" parent="." instance=ExtResource("6_2u2vc")]
 position = Vector2(-9, 1)
@@ -81,6 +56,7 @@ position = Vector2(0, -9)
 position = Vector2(0, 658)
 
 [node name="wanderingcivilian" parent="." instance=ExtResource("5_ojpw6")]
-position = Vector2(593, -65)
+collision_mask = 16
 
-[editable path="Pool"]
+[node name="Node2D" parent="." instance=ExtResource("6_8i28d")]
+position = Vector2(99, 162)

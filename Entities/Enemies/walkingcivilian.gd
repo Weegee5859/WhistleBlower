@@ -3,6 +3,7 @@ extends "res://Entities/Enemies/civilian.gd"
 
 func _ready():
 	current_speed = walking_speed
+	selectRandomTextureVariant()
 	
 func _process(delta):
 	if ready_to_leave:
@@ -11,4 +12,5 @@ func _process(delta):
 		# walk towards the right at current_speed
 		velocity.x = current_speed
 	deleteWhenFarAway()
+	flipSprite()
 	move_and_slide()

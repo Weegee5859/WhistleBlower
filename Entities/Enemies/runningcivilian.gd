@@ -4,10 +4,14 @@ extends "res://Entities/Enemies/civilian.gd"
 
 func _ready():
 	current_speed = running_speed
+	selectRandomTextureVariant()
 	
 func _process(delta):
+	if not animation_player.is_playing():
+		animation_player.play("run")
 	# walk towards the right at current_speed
 	velocity.x = current_speed
 	deleteWhenFarAway()
+	flipSprite()
 	move_and_slide()
 	

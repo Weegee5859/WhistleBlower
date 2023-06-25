@@ -1,12 +1,45 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccjp3kj3xa0so"]
+[gd_scene load_steps=9 format=3 uid="uid://ccjp3kj3xa0so"]
 
 [ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="1_p7pyo"]
 [ext_resource type="Script" path="res://Entities/Enemies/runningcivilian.gd" id="2_h8ptt"]
+[ext_resource type="Animation" uid="uid://crtgnl6o7it55" path="res://Animation/run.res" id="4_cx4ui"]
+[ext_resource type="Animation" uid="uid://dglhgyr1e6esx" path="res://Animation/die.res" id="4_jhghv"]
+[ext_resource type="Animation" uid="uid://difxher7aruy6" path="res://Animation/swim.res" id="4_q8d2l"]
+[ext_resource type="Animation" uid="uid://cibnqksrsljuo" path="res://Animation/swim_idle.res" id="5_q1vro"]
+
+[sub_resource type="Animation" id="Animation_vyrp8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jj61e"]
+_data = {
+"RESET": SubResource("Animation_vyrp8"),
+"die": ExtResource("4_jhghv"),
+"run": ExtResource("4_cx4ui"),
+"swim": ExtResource("4_q8d2l"),
+"swim_idle": ExtResource("5_q1vro")
+}
 
 [node name="runningcivilian" instance=ExtResource("1_p7pyo")]
 collision_layer = 6
 script = ExtResource("2_h8ptt")
 doing_evil_action = true
 
-[node name="CollisionShape2D" parent="." index="2"]
-disabled = true
+[node name="Sprite2D" parent="." index="0"]
+hframes = 8
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": SubResource("AnimationLibrary_jj61e")
+}

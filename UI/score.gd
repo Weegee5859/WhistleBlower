@@ -1,5 +1,5 @@
 extends Control
-@onready var score: int
+@onready var score: int = 100
 
 func _ready():
 	Global.scoreboard = self

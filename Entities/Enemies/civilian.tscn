@@ -1,38 +1,64 @@
-[gd_scene load_steps=6 format=3 uid="uid://bbkqawh0yfxot"]
+[gd_scene load_steps=11 format=3 uid="uid://bbkqawh0yfxot"]
 
 [ext_resource type="PackedScene" uid="uid://cbv5etmqaqmd3" path="res://Entities/entity.tscn" id="1_3u6p4"]
 [ext_resource type="Script" path="res://Entities/Enemies/civilian.gd" id="2_vmobx"]
-[ext_resource type="Texture2D" uid="uid://cxyfiav22t1l6" path="res://icon.svg" id="2_y05qj"]
+[ext_resource type="Texture2D" uid="uid://6yhednlorbhk" path="res://Sprites/kid_one.png" id="3_a6eyh"]
+[ext_resource type="Texture2D" uid="uid://nqilqxwviqhf" path="res://Sprites/kid_two.png" id="4_rn2l8"]
+[ext_resource type="Texture2D" uid="uid://bfhssb1hpggkw" path="res://Sprites/kid_three.png" id="5_2yf18"]
+[ext_resource type="PackedScene" uid="uid://y11cl6o485x2" path="res://Sprites/particles/star_particle.tscn" id="6_0pghv"]
+[ext_resource type="AnimationLibrary" uid="uid://cjp5hp0pfm7jx" path="res://Animation/civilian_anim.res" id="8_8vd0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m5oin"]
-size = Vector2(98, 100)
+size = Vector2(84, 92)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nmrnm"]
-size = Vector2(63, 62)
+size = Vector2(32, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mpghq"]
+size = Vector2(15, 3.5)
 
 [node name="civilian" instance=ExtResource("1_3u6p4")]
 collision_layer = 2
-collision_mask = 16
+collision_mask = 24
 script = ExtResource("2_vmobx")
 doing_evil_action = false
 evil_action_complete = false
 default_speed = 10
 current_speed = 0
+texture_variant_array = Array[Texture]([ExtResource("3_a6eyh"), ExtResource("4_rn2l8"), ExtResource("5_2yf18")])
+star_particle = ExtResource("6_0pghv")
 
 [node name="Sprite2D" parent="." index="0"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_y05qj")
+position = Vector2(0, -20)
+texture = ExtResource("3_a6eyh")
+hframes = 9
+vframes = 4
+frame = 4
 
 [node name="MouseArea2D" parent="." index="1"]
 collision_layer = 2
 collision_mask = 9
 
 [node name="CollisionShape2D" parent="MouseArea2D" index="0"]
-position = Vector2(-0.5, -1)
+position = Vector2(3, 6)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_m5oin")
 debug_color = Color(0, 0.643137, 0.270588, 0.419608)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2(0.5, 1)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+libraries = {
+"": ExtResource("8_8vd0g")
+}
+
+[node name="Area2D" type="Area2D" parent="." index="3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+position = Vector2(4, 6)
 shape = SubResource("RectangleShape2D_nmrnm")
+
+[node name="FloorArea2D" type="Area2D" parent="." index="4"]
+collision_mask = 8
+
+[node name="FloorCollision" type="CollisionShape2D" parent="FloorArea2D" index="0"]
+position = Vector2(3.5, 17)
+shape = SubResource("RectangleShape2D_mpghq")
