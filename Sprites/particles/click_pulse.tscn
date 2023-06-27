@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://cmwg3a5y63cwj"]
+
+[ext_resource type="Texture2D" uid="uid://car41e0c47yan" path="res://Sprites/circle.png" id="1_ixptv"]
+[ext_resource type="Script" path="res://Sprites/particles/deleteParticleWhenDone.gd" id="1_vv85n"]
+
+[sub_resource type="Gradient" id="Gradient_d2423"]
+offsets = PackedFloat32Array(0, 0.718518, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_63i0r"]
+gradient = SubResource("Gradient_d2423")
+
+[sub_resource type="Curve" id="Curve_ybqdk"]
+_data = [Vector2(0.00229358, 0.0181818), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_jfr2k"]
+curve = SubResource("Curve_ybqdk")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b4bxo"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_jfr2k")
+color_ramp = SubResource("GradientTexture1D_63i0r")
+
+[node name="CirclePulse" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_b4bxo")
+texture = ExtResource("1_ixptv")
+lifetime = 0.3
+one_shot = true
+visibility_rect = Rect2(-1, -1, 2, 2)
+script = ExtResource("1_vv85n")

@@ -22,14 +22,21 @@ extends "res://Entities/entity.gd"
 @onready var death_animation_final_pos: Vector2
 @onready var caught: bool
 
+#Particles
+@onready var poison = preload("res://Sprites/particles/sick_particle.tscn")
 
+# Civilian textures
 @export var texture_variant_array: Array[Texture] = [
 	preload("res://Sprites/kid_one.png"),
 	preload("res://Sprites/kid_three.png")
 ]
-
+#Particles
 @export var star_particle = preload("res://Sprites/particles/star_particle.tscn")
 
+
+
+
+# If doing evil action or evil action has already occured/completed
 func setdoingEvilTrue():
 	print("doing evil is trueeeee")
 	doing_evil_action = true
@@ -43,7 +50,7 @@ func setevilComplete():
 	Global.scoreboard.removePoints(scoreWhenEvilIsDone)
 	evil_action_complete = true
 	
-
+# Update sprite direction based on velocity
 func flipSprite():
 	if velocity.x >0:
 		sprite_2d.flip_h = true
@@ -53,7 +60,7 @@ func flipSprite():
 		sprite_2d.flip_h = false
 		if animation_player.current_animation == "swim":
 			sprite_2d.rotation = -45
-
+# Select random civilian texture
 func selectRandomTextureVariant():
 	sprite_2d.texture = texture_variant_array[randi_range(0,texture_variant_array.size()-1)]
 
@@ -61,6 +68,7 @@ func _ready():
 	pass
 
 func die():
+	caught = true
 	deathMovement()
 	animation_player.play("die")
 	#await animation_player.animation_finished
@@ -74,6 +82,7 @@ func _input(event):
 	if Input.is_action_just_pressed("left_click") and mouse_colliding:
 		# left_clicked or blew whistle at someone doing an evil action
 		if doing_evil_action:
+			velocity = Vector2(0,0)
 			#animation_player.play("die")
 			#await animation_player.animation_finished
 			#queue_free()

@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddbk8g6ibs20a"]
+
+[ext_resource type="Texture2D" uid="uid://g2dai6xr8amm" path="res://Sprites/bubble.png" id="1_5ydw3"]
+
+[sub_resource type="Gradient" id="Gradient_tfs06"]
+offsets = PackedFloat32Array(0, 0.135802)
+colors = PackedColorArray(1, 1, 1, 1, 0.758405, 0.758405, 0.758405, 0.809655)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_koq2e"]
+gradient = SubResource("Gradient_tfs06")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_japxc"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 80.0
+flatness = 1.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_min = -90.0
+angle_max = 90.0
+color = Color(0.278431, 0.72549, 0.419608, 0.211765)
+color_ramp = SubResource("GradientTexture1D_koq2e")
+
+[node name="SickParticle" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+process_material = SubResource("ParticleProcessMaterial_japxc")
+texture = ExtResource("1_5ydw3")
+speed_scale = 1.72
+explosiveness = 0.16
+randomness = 0.22

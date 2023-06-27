@@ -1,21 +1,36 @@
-[gd_scene load_steps=2 format=3 uid="uid://beppbqax8aii3"]
+[gd_scene load_steps=4 format=3 uid="uid://beppbqax8aii3"]
 
 [ext_resource type="Script" path="res://UI/clock.gd" id="1_fijf8"]
+[ext_resource type="Texture2D" uid="uid://3nnplkeycycy" path="res://UI/ui_blue.png" id="1_mfqpg"]
+[ext_resource type="FontFile" uid="uid://cowvg0etac74d" path="res://UI/ARCADECLASSIC.TTF" id="2_2h7q4"]
 
-[node name="Clock" type="Label"]
+[node name="Clock" type="TextureRect"]
 top_level = true
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1048.0
-offset_bottom = -619.0
+offset_top = -3.0
+offset_right = -1034.0
+offset_bottom = -572.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Clock"
-script = ExtResource("1_fijf8")
+texture = ExtResource("1_mfqpg")
 
 [node name="ShiftTimer" type="Timer" parent="."]
 wait_time = 60.0
 one_shot = true
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 26.0
+offset_right = 104.0
+offset_bottom = 54.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_2h7q4")
+theme_override_font_sizes/font_size = 18
+text = "10:00am"
+script = ExtResource("1_fijf8")
 
 [connection signal="timeout" from="ShiftTimer" to="." method="_on_shift_timer_timeout"]

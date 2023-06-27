@@ -25,7 +25,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="ReadyToLeaveTimer" type="Timer" parent="." index="6"]
-wait_time = 15.0
+wait_time = 20.0
 one_shot = true
 autostart = true
 
@@ -36,5 +36,8 @@ autostart = true
 
 [node name="PoopyTimer" type="Timer" parent="." index="10"]
 wait_time = 3.0
+
+[node name="StateChangeTimer" type="Timer" parent="." index="12"]
+one_shot = true
 
 [connection signal="timeout" from="ReadyToLeaveTimer" to="." method="_on_ready_to_leave_timer_timeout"]

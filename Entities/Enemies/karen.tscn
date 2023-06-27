@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch33fdfhq0sp3"]
+
+[ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="1_1o64y"]
+[ext_resource type="Script" path="res://Entities/Enemies/Karen.gd" id="2_qixnc"]
+[ext_resource type="Texture2D" uid="uid://d03wchr1aj2fs" path="res://Sprites/karen.png" id="3_pdws1"]
+[ext_resource type="PackedScene" uid="uid://btwejvxbd3t8o" path="res://Entities/Enemies/karen_nag_particle.tscn" id="3_xu5ee"]
+
+[node name="Karen" instance=ExtResource("1_1o64y")]
+script = ExtResource("2_qixnc")
+doing_evil_action = false
+evil_action_complete = false
+
+[node name="KarenNagParticle" parent="." index="0" instance=ExtResource("3_xu5ee")]
+position = Vector2(21, -19)
+
+[node name="Sprite2D" parent="." index="1"]
+scale = Vector2(2, 2)
+texture = ExtResource("3_pdws1")
+flip_h = true
+hframes = 1
+vframes = 4
+frame = 2
+
+[node name="Area2D" parent="." index="4"]
+collision_mask = 32
+
+[node name="FloorArea2D" parent="." index="5"]
+collision_mask = 0
+
+[node name="FloorCollision" parent="FloorArea2D" index="0"]
+position = Vector2(-0.5, 19)

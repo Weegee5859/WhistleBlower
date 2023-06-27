@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://ykrsidpxcq83"]
+
+[ext_resource type="Texture2D" uid="uid://dx3qqpflc7yik" path="res://Sprites/loud_whistle.png" id="1_ixmpv"]
+
+[sub_resource type="Curve" id="Curve_v0f03"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -268.364), 0.0, 0.0, 0, 0, Vector2(0.0733945, 72), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1vn27"]
+curve = SubResource("Curve_v0f03")
+
+[sub_resource type="Curve" id="Curve_etweo"]
+_data = [Vector2(0.0137615, 0), 0.0, 0.0, 0, 0, Vector2(0.172018, 0.981818), 0.0, 0.0, 0, 0, Vector2(0.208716, 0.854545), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_l67wm"]
+curve = SubResource("Curve_etweo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_77rf4"]
+particle_flag_disable_z = true
+direction = Vector3(1, -1, 0)
+spread = 30.0
+gravity = Vector3(0, 0, 0)
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+angle_curve = SubResource("CurveTexture_1vn27")
+scale_curve = SubResource("CurveTexture_l67wm")
+
+[node name="ExclamationParticle" type="Node2D"]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_77rf4")
+texture = ExtResource("1_ixmpv")
+explosiveness = 1.0
+randomness = 0.87

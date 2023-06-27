@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cumtup0uc0pfn"]
+[gd_scene load_steps=5 format=3 uid="uid://cumtup0uc0pfn"]
 
 [ext_resource type="Texture2D" uid="uid://b70l4w1ejr8g7" path="res://UI/You_Win.PNG" id="1_kg10x"]
 [ext_resource type="Script" path="res://UI/win_screen.gd" id="2_alhrf"]
+[ext_resource type="FontFile" uid="uid://cowvg0etac74d" path="res://UI/ARCADECLASSIC.TTF" id="3_dacyk"]
+[ext_resource type="Script" path="res://UI/MainMenuButton.gd" id="3_u622x"]
 
 [node name="WinScreen" type="TextureRect"]
 texture_filter = 1
@@ -12,3 +14,15 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_kg10x")
 script = ExtResource("2_alhrf")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 409.0
+offset_top = 575.0
+offset_right = 708.0
+offset_bottom = 608.0
+theme_override_fonts/font = ExtResource("3_dacyk")
+text = "Main Menu"
+script = ExtResource("3_u622x")
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

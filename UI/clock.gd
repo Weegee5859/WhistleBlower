@@ -1,5 +1,14 @@
 extends Label
-@onready var shift_timer = $ShiftTimer
+@onready var shift_timer = $"../ShiftTimer"
+@onready var texture_rect = $".."
+
+# Civilian textures
+@export var texture_variant_array: Array[Texture] = [
+	preload("res://UI/ui_blue.png"),
+	preload("res://UI/yellow_ui.png"),
+	preload("res://UI/red_ui.png")
+]
+
 # This is how many real time minutes the game will last
 @onready var minutes: float = 1
 @onready var minutes_in_seconds: float = minutes * 60
@@ -37,7 +46,22 @@ func _ready():
 func _process(delta):
 	# Math Stuff I dont rly understand but...
 	# It makes the clock work so
-	# 
+	# Morning Color
+	if current_time < 12:
+		if texture_rect.texture != texture_variant_array[0]:
+			texture_rect.texture = texture_variant_array[0]
+			print(current_time)
+	# Evening Color
+	elif current_time > 14:
+		if texture_rect.texture != texture_variant_array[2]:
+			texture_rect.texture = texture_variant_array[2]
+			print(current_time)
+	# Noon Color
+	else:
+		if texture_rect.texture != texture_variant_array[1]:
+			texture_rect.texture = texture_variant_array[1]
+			print(current_time)
+			
 	if stop_clock: return
 	current_time_percentage = (shift_timer.time_left / minutes_in_seconds) * 100
 	percentage_of_shift = (shift_hours * current_time_percentage) / 100
@@ -47,8 +71,8 @@ func _process(delta):
 	if current_time_percentage <= 0 and not Global.gameover:
 		Global.winner = true
 		var inst = win.instantiate()
-		get_parent().get_node("WinLose").visible = true
-		get_parent().get_node("WinLose").add_child(inst)
+		get_parent().get_parent().get_node("WinLose").visible = true
+		get_parent().get_parent().get_node("WinLose").add_child(inst)
 		stop_clock = true
 
 

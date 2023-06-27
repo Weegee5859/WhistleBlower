@@ -14,7 +14,7 @@ size = Vector2(84, 92)
 size = Vector2(32, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mpghq"]
-size = Vector2(15, 3.5)
+size = Vector2(9, 3.5)
 
 [node name="civilian" instance=ExtResource("1_3u6p4")]
 collision_layer = 2
@@ -50,6 +50,7 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="." index="3"]
+collision_mask = 48
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
 position = Vector2(4, 6)

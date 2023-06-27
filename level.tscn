@@ -6,7 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://u2jlmxewm22l" path="res://Objects/pool.tscn" id="4_c0ten"]
 [ext_resource type="PackedScene" uid="uid://d244irgwvfks1" path="res://Entities/Enemies/wanderingcivilian.tscn" id="5_ojpw6"]
 [ext_resource type="PackedScene" uid="uid://cepxog7j58r6g" path="res://Level_Settings/world_border_x.tscn" id="6_2u2vc"]
-[ext_resource type="PackedScene" uid="uid://y11cl6o485x2" path="res://Sprites/particles/star_particle.tscn" id="6_8i28d"]
 [ext_resource type="PackedScene" uid="uid://0mqbw66laddq" path="res://Level_Settings/world_border_y.tscn" id="7_f5b37"]
 [ext_resource type="PackedScene" uid="uid://bm3rhb3vwvk6f" path="res://UI/score.tscn" id="8_erm57"]
 [ext_resource type="AudioStream" uid="uid://b44mpc3s0yjwm" path="res://Music/whistleblower_music.wav" id="11_8vouk"]
@@ -15,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://byh8t5p58ex6h" path="res://Objects/chair_up.png" id="13_ls6s1"]
 [ext_resource type="Texture2D" uid="uid://cc4r1llcjiodk" path="res://Objects/chair_right.png" id="14_potxm"]
 [ext_resource type="Texture2D" uid="uid://cmxy1d8d827ih" path="res://Objects/chair_down.png" id="15_fqh1m"]
+[ext_resource type="PackedScene" uid="uid://ch33fdfhq0sp3" path="res://Entities/Enemies/karen.tscn" id="16_hk3yq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rjs8w"]
 outline_color = Color(0, 0, 0, 1)
@@ -26,18 +26,18 @@ anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
 offset_left = 13.0
-offset_top = 14.0
+offset_top = 64.0
 offset_right = 74.0
-offset_bottom = 40.0
+offset_bottom = 90.0
 grow_horizontal = 1
 grow_vertical = 1
 label_settings = SubResource("LabelSettings_rjs8w")
 
 [node name="Clock" parent="." instance=ExtResource("1_mi501")]
-offset_left = 12.0
-offset_top = 41.0
-offset_right = -1036.0
-offset_bottom = -578.0
+offset_left = 10.0
+offset_top = -6.0
+offset_right = -1024.0
+offset_bottom = -575.0
 
 [node name="Pool" parent="." instance=ExtResource("4_c0ten")]
 position = Vector2(573, 326)
@@ -53,31 +53,34 @@ position = Vector2(-9, 1)
 position = Vector2(1163, 1)
 
 [node name="WorldBorderY" parent="." instance=ExtResource("7_f5b37")]
-position = Vector2(0, -9)
+position = Vector2(0, 2)
 
 [node name="WorldBorderY2" parent="." instance=ExtResource("7_f5b37")]
 position = Vector2(0, 658)
 
-[node name="Node2D" parent="." instance=ExtResource("6_8i28d")]
-position = Vector2(99, 162)
-
 [node name="CivilianSpawner" parent="." instance=ExtResource("3_3vu1n")]
 position = Vector2(-59, 64)
 min_cooldown_time = 4
-max_cooldown_time = 6
+max_cooldown_time = 8
 
 [node name="CivilianSpawner2" parent="." instance=ExtResource("3_3vu1n")]
 position = Vector2(-61, 586)
-min_cooldown_time = 6
+min_cooldown_time = 5
 max_cooldown_time = 7
 
 [node name="CivilianSpawner3" parent="." instance=ExtResource("3_3vu1n")]
-position = Vector2(606, -41)
+position = Vector2(586, -77)
 max_cooldown_time = 6
 offset_x = 50
 civilians = Array[Resource]([ExtResource("5_ojpw6")])
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="CivilianSpawner4" parent="." instance=ExtResource("3_3vu1n")]
+position = Vector2(-55, 405)
+min_cooldown_time = 8
+max_cooldown_time = 10
+civilians = Array[Resource]([ExtResource("16_hk3yq")])
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_8vouk")
 volume_db = -9.301
 autoplay = true
@@ -93,7 +96,7 @@ script = ExtResource("11_jt03w")
 
 [node name="IceCream" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(101, 452)
+position = Vector2(150, 488)
 scale = Vector2(1.89362, 1.89362)
 texture = ExtResource("12_h6hd7")
 
@@ -137,6 +140,7 @@ scale = Vector2(2.06383, 2.06383)
 texture = ExtResource("15_fqh1m")
 
 [node name="ChairDown2" type="Sprite2D" parent="."]
+texture_filter = 1
 position = Vector2(197.733, 73.1606)
 rotation = 3.14159
 scale = Vector2(1.64171, 1.64172)

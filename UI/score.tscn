@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://bm3rhb3vwvk6f"]
+[gd_scene load_steps=5 format=3 uid="uid://bm3rhb3vwvk6f"]
 
 [ext_resource type="Script" path="res://UI/score.gd" id="1_nos83"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xmnly"]
+bg_color = Color(0.0980392, 0.0980392, 0.0980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sbcjr"]
+bg_color = Color(0.988235, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_o6fi8"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_xmnly")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_sbcjr")
 
 [node name="Score" type="Label"]
 top_level = true
@@ -14,3 +24,10 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Score: 0"
 script = ExtResource("1_nos83")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 147.0
+offset_bottom = 27.0
+theme = SubResource("Theme_o6fi8")

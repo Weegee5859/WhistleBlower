@@ -15,55 +15,105 @@ extends "res://Entities/Enemies/civilian.gd"
 @onready var sick: bool
 @onready var ready_to_poop_timer = $ReadyToPoopTimer
 
+#State Machine
+enum states {enter_scene,idle,wander,dive,sick,leave_scene}
+@onready var current_state = states.enter_scene
+@onready var state_change_timer = $StateChangeTimer
+
+#Dialog
+@onready var dialog_box = $DialogBox
+
+#State Machine func
+func changeState(new_state: states):
+	state_change_timer.stop()
+	exitState(current_state)
+	current_state = new_state
+	enterState(new_state)
+	
+func enterState(state):
+	# Runs when changed to this state
+	if state == states.wander:
+		# Set Random Direction
+		direction = Vector2(randf_range(-1,1),randf_range(-1,1))
+		state_change_timer.wait_time = randi_range(2,3)
+		state_change_timer.start()
+	if state == states.idle:
+		velocity = Vector2(0,0)
+		state_change_timer.wait_time = randi_range(1,3)
+		state_change_timer.start()
+	if state == states.sick:
+		var inst = poison.instantiate()
+		add_child(inst)
+		sprite_2d.modulate = Color(0.5, 0.8, 0.5)
+	print("entered state " + str(state))
+		
+		
+func exitState(state):
+	if state == states.enter_scene:
+		disableBypassBorder()
+		
+func runCurrentState():
+	if current_state == states.enter_scene:
+		enterScene()
+	if current_state == states.leave_scene:
+		leaveScene()
+	if current_state == states.wander:
+		newWander()
+	if current_state == states.sick:
+		poopInPool()
+	if current_state == states.dive:
+		dive()
+	if current_state == states.idle:
+		if state_change_timer.is_stopped():
+			changeState(states.wander)
+		# If idling in the pool while sick
+		# change to sick state
+		if sick and swimming:
+			changeState(states.sick)
+		
+
 func updateSprite():
-	if not collidingWithPool() and swimming:
+	if not collidingWithPool():
 		swimming = false
+	else:
+		swimming = true
+	
 	if swimming:
 		animation_player.play("swim")
 	else:
 		animation_player.play("run")
-		return
 
 func _ready():
 	evil_action_complete = false
 	doing_evil_action = false
-	# Assign random diver
-	var temp = randi_range(0,2)
+	# Assign random diver, sickness, etc
+	var temp = randi_range(0,3)
 	if temp == 0:
-		print("imma diver")
+		print("im gonna be diving today!")
 		diver = true
 	if temp == 1:
 		sick = true
-		print("imma sick")
+		print("im gonna be sick today!")
+	if temp == 2:
+		print("im gonna be combination of sick and diver!")
+		diver = true
+		sick = true
 	print(temp)
 	current_speed = walking_speed
 	selectRandomTextureVariant()
+	# Change State
+	changeState(states.enter_scene)
 
 func _process(delta):
-	# When civilian is spawned in, it will walk towards the pool until it reaches
-	# a good position in the level
-	if not ready_to_wander:
-		updateSprite()
-		# Wandering civilian can walk through world borders
-		# when spawned off screen
-		enableBypassBorder()
-		distance = Global.pool_center_position - position
-		direction = (Global.pool_center_position - position).normalized()
-		velocity = direction * current_speed
-		#print(distance.length())
-		if distance.length() <= randi_range(300,350) or collidingWithPool():
-		#if distance.length() <= randi_range(200,300):
-			ready_to_wander = true
-			direction = direction*-1
-	if ready_to_wander:
-		if ready_to_poop_timer.is_stopped() and sick and swimming:
-			poopInPool()
-		else:
-			wander()
-		deleteWhenFarAway()
-	
+	#if Input.is_action_just_pressed("left_click"):
+		#dialog_box.loadRandomDialog()
+		#dialog_box.displayDialog()
+		#changeState(states.wander)
+	runCurrentState()
 	flipSprite()
+	deleteWhenFarAway()
 	move_and_slide()
+
 		
 func poopInPool():
 	#print("poop time")
@@ -71,64 +121,52 @@ func poopInPool():
 		animation_player.play("poop")
 	doing_evil_action = true
 	#await animation_player.animation_finished
-
-func wander():
-	if ready_to_leave:
-		updateSprite()
-		leave()
-		return
 	
-	# when wandering, it cannt pass world border
-	disableBypassBorder()
-	# If the idle timer is running idle
-	if not idle_timer.is_stopped():
-		velocity = Vector2(0,0)
-		
-	# Wandering timer is running so we can wander
-	# only if the idle timer is not running at the same time
-	if not wandering_timer.is_stopped() and idle_timer.is_stopped():
-		if collidingWithPool() and diver and not swimming:
-			direction = (Global.pool_center_position - position).normalized()
-			velocity = direction * 50
-			doing_evil_action = true
-			print("imma dive now")
-			if animation_player.current_animation != "die":
-				animation_player.play("dive")
-			# move in direction of pool
-			doing_evil_action = true
-			#await animation_player.animation_finished
-			
-			#die()
-		#if collidingWithPool() and not can_swim:
-			# make direction face away from the pools center
-			# so the civilian can walk away
-		if collidingWithPool() and not swimming:
-			swimming = true
-			print("now swimming")
+func randomDialog():
+	if randi_range(1,300) == 1:
+		dialog_box.displayRandomDialog()
 
-			#direction = (position - Global.pool_center_position).normalized()
-		if not collidingWithPool() and swimming:
-			#await animation_player.animation_finished
-			#print("done diving time to swim")
-			#current_speed = swim_speed
-			swimming = false
-			animation_player.play("run")
+func enterScene():
+	updateSprite()
+	# Wandering civilian can walk through world borders
+	# when spawned off screen
+	enableBypassBorder()
+	distance = Global.pool_center_position - position
+	direction = (distance).normalized()
+	velocity = direction * current_speed
+	#print(distance.length())
+	if distance.length() <= randi_range(200,300) or collidingWithPool():
+	#if distance.length() <= randi_range(200,300):
+		changeState(states.wander)
 
-			# Walk in direction
-		if animation_player.current_animation != "dive":
-			updateSprite()
-			velocity = direction*swim_speed
-	# whenever the wandering timer is stopped
-	# get a new random direction to wander in
-	# and then start the idle timer to idle
-	if wandering_timer.is_stopped():
-		idle_timer.wait_time = randf_range(1,2)
-		idle_timer.start()
-		# idle timer with random time
-		direction = Vector2(randf_range(-1,1),randf_range(-1,1))
-		wandering_timer.wait_time = randi_range(2,3)
-		wandering_timer.start()
+func leaveScene():
+	updateSprite()
+	# Wandering civilian can walk through world borders
+	# when spawned off screen
+	enableBypassBorder()
+	distance =  position - Global.pool_center_position
+	direction = (distance).normalized()
+	velocity = direction * current_speed
+
+func newWander():
+	velocity = direction*current_speed
+	updateSprite()
+	randomDialog()
+	if state_change_timer.is_stopped():
+		print("doneee")
+		changeState(states.idle)
+	if collidingWithPool() and diver:
+		changeState(states.dive)
 		
+func dive():
+	direction = (Global.pool_center_position - position).normalized()
+	velocity = direction * 50
+	doing_evil_action = true
+	print("imma dive now")
+	if animation_player.current_animation != "die":
+		animation_player.play("dive")
+	# move in direction of pool
+	doing_evil_action = true			
 
 func collidingWithPool():
 	#If wanderer collides with the pool, walk away from the pool
@@ -138,7 +176,8 @@ func collidingWithPool():
 	return false
 
 func _on_ready_to_leave_timer_timeout():
-	ready_to_leave = true
+	#ready_to_leave = true
+	current_state = states.leave_scene
 	print("ready to go")
 
 
@@ -149,7 +188,9 @@ func _on_animation_player_animation_finished(anim_name):
 		setevilComplete()
 		velocity = Vector2(0,0)
 		swimming = true
+		diver = false
 		current_speed = swim_speed
+		changeState(states.wander)
 	if anim_name == "poop":
 		doing_evil_action = false
 		setevilComplete()
@@ -157,5 +198,9 @@ func _on_animation_player_animation_finished(anim_name):
 		print("HE DONE DOODOO'D IN THE POOL")
 		sick = false
 		ready_to_leave = true
+		changeState(states.leave_scene)
 	if anim_name == "die":
 		queue_free()
+
+
+

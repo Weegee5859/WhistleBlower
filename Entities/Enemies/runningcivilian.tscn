@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccjp3kj3xa0so"]
+[gd_scene load_steps=7 format=3 uid="uid://ccjp3kj3xa0so"]
 
 [ext_resource type="PackedScene" uid="uid://bbkqawh0yfxot" path="res://Entities/Enemies/civilian.tscn" id="1_p7pyo"]
 [ext_resource type="Script" path="res://Entities/Enemies/runningcivilian.gd" id="2_h8ptt"]
 [ext_resource type="Animation" uid="uid://crtgnl6o7it55" path="res://Animation/run.res" id="4_cx4ui"]
 [ext_resource type="Animation" uid="uid://dglhgyr1e6esx" path="res://Animation/die.res" id="4_jhghv"]
+[ext_resource type="PackedScene" uid="uid://b5kdj5vif6th5" path="res://Sprites/particles/kid_dash_trail.tscn" id="5_ciji4"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jj61e"]
 _data = {
@@ -15,11 +16,13 @@ _data = {
 collision_layer = 6
 script = ExtResource("2_h8ptt")
 
-[node name="Sprite2D" parent="." index="0"]
+[node name="Node2D" parent="." index="0" instance=ExtResource("5_ciji4")]
+
+[node name="Sprite2D" parent="." index="1"]
 rotation = 0.0
 frame = 3
 
-[node name="AnimationPlayer" parent="." index="2"]
+[node name="AnimationPlayer" parent="." index="3"]
 libraries = {
 "": SubResource("AnimationLibrary_jj61e")
 }
